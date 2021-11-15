@@ -1,6 +1,8 @@
 spring:
   application:
     name: ms-gateway
+  zipkin:
+    base-url: ${ZIPKIN_URL:http://localhost:9411}
   cloud:
     gateway:
       discovery:
@@ -8,10 +10,10 @@ spring:
           enabled: true
           lower-case-service-id: true
 server:
-  port: 8181
+  port: ${SERVER_PORT:8181}
 eureka:
   client:
     fetch-registry: true
     register-with-eureka: true
     serviceUrl:
-      defaultZone: http://localhost:8763/eureka/
+      defaultZone: ${EUREKA_URI:http://localhost:8763/eureka}
