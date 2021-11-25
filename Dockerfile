@@ -13,6 +13,7 @@ COPY ${DEPENDENCY}/BOOT-INF/classes /app
 #ENV SPRING_PROFILE local
 ENV SERVER_PORT 8181
 ENV EUREKA_URI "http://localhost:8763/eureka"
+ENV CONFIG_URI "http://localhost:8887"
 
 ENTRYPOINT ["java", \
             "-cp", \
