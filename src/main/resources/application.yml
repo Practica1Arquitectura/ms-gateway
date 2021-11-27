@@ -5,10 +5,29 @@ spring:
     base-url: ${ZIPKIN_URL:http://localhost:9411}
   cloud:
     gateway:
-      discovery:
-        locator:
-          enabled: true
-          lower-case-service-id: true
+      routes:
+        - id: service_student
+          uri: lb://MS-STUDENT
+          predicates:
+            - Path=/ms-student/**
+          filters:
+            - RewritePath=/ms-student/(?<remaining>.*), /$\{remaining}
+        - id: service_teacher
+          uri: lb://MS-TEACHER
+          predicates:
+            - Path=/ms-teacher/**
+          filters:
+            - RewritePath=/ms-teacher/(?<remaining>.*), /$\{remaining}
+        - id: service_course
+          uri: lb://MS-COURSE
+          predicates:
+            - Path=/ms-course/**
+          filters:
+            - RewritePath=/ms-course/(?<remaining>.*), /$\{remaining}
+      #discovery:
+        #locator:
+          #enabled: true
+          #lower-case-service-id: true
       default-filters:
         - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
       globalcors:
